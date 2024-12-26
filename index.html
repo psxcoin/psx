@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$PSX</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400&display=swap');
+        
+        @font-face {
+            font-family: 'Silent';
+            src: url('https://fonts.cdnfonts.com/css/silent-reaction') format('woff');
+        }
+        
+        :root {
+            --bg: #191719;
+            --text: #a7a7a7;
+            --accent: #8b688b;
+            --accent-light: #c4a6c4;
+            --grid: #2a272a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="fill:none;stroke:rgb(139,104,139);stroke-width:2px;"><circle cx="8" cy="8" r="6"/></svg>') 8 8, auto;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(139, 104, 139, 0.1) 0%, transparent 80%),
+                linear-gradient(var(--grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+            background-size: 100% 100%, 20px 20px, 20px 20px;
+            opacity: 0.5;
+            z-index: -1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.3; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-top: 120px;
+        }
+
+        .nav-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(25, 23, 25, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contract-box {
+            background: rgba(43, 39, 43, 0.8);
+            padding: 0.8rem 1.2rem;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contract-label {
+            font-family: 'Silent', monospace;
+            font-size: 0.7rem;
+            color: var(--accent-light);
+        }
+
+        .contract-address {
+            font-family: 'Space Grotesk', monospace;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            font-family: 'Silent', monospace;
+            font-size: 0.7rem;
+            color: var(--accent-light);
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            background: rgba(43, 39, 43, 0.8);
+            border: 1px solid var(--accent);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover {
+            background: var(--accent);
+            color: var(--bg);
+            transform: translateY(-2px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .logo {
+            font-family: 'Silent', monospace;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, var(--accent-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: 4px;
+            animation: textPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature {
+            background: rgba(43, 39, 43, 0.5);
+            padding: 1.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(139, 104, 139, 0.1);
+            border-color: var(--accent-light);
+        }
+
+        .feature h3 {
+            font-family: 'Silent', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .gif-space {
+            aspect-ratio: 16/9;
+            background: var(--bg);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Silent', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            overflow: hidden;
+        }
+
+        .intro {
+            font-family: 'Silent', monospace;
+            font-size: 1rem;
+            max-width: 800px;
+            margin: 0 auto 4rem auto;
+            text-align: center;
+            color: var(--accent-light);
+            letter-spacing: 1px;
+            line-height: 2;
+        }
+
+        @media (max-width: 768px) {
+            .nav-wrapper {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .container {
+                padding-top: 200px;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    
+    <nav class="nav-wrapper">
+        <div class="contract-box" id="contractBox">
+            <span class="contract-label">CONTRACT</span>
+            <span class="contract-address">Follow our Twitter for updates.</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="https://github.com/psxproject" class="nav-link">
+                <i class="fab fa-github"></i>
+                <span>GITHUB</span>
+            </a>
+            <a href="https://twitter.com/psxproject" class="nav-link">
+                <i class="fab fa-twitter"></i>
+                <span>TWITTER</span>
+            </a>
+            <a href="https://discord.gg/psx" class="nav-link">
+                <i class="fab fa-discord"></i>
+                <span>DISCORD</span>
+            </a>
+            <a href="https://t.me/psxproject" class="nav-link">
+                <i class="fab fa-telegram"></i>
+                <span>TELEGRAM</span>
+            </a>
+            <a href="https://docs.psxproject.com" class="nav-link">
+                <i class="fas fa-book"></i>
+                <span>DOCS</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">$PSX</h1>
+            <div class="gif-space">
+                <img src="main.gif" alt="Animation" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </header>
+
+        <p class="intro">Through the static and shadows, we remember. A digital archive of the gray monolith that changed everything.</p>
+
+        <div class="content-grid">
+            <div class="feature">
+                <h3>Forgotten Archives</h3>
+                <div class="gif-space">
+                    <img src="silenthill.gif" alt="Animation" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p>Preserving the raw polygons and textures that shaped our nightmares and dreams.</p>
+            </div>
+
+            <div class="feature">
+                <h3>Memory Fragments</h3>
+                <div class="gif-space">
+                    <img src="glitch.gif" alt="Animation" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p>Every save point a story, every glitch a memory. Share your journey through the fog.</p>
+            </div>
+
+            <div class="feature">
+                <h3>Lost Technology</h3>
+                <div class="gif-space">
+                    <img src="bts.gif" alt="Animation" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p>Documentation of development tools and techniques that birthed a new reality.</p>
+            </div>
+
+            <div class="feature">
+                <h3>Echo Chamber</h3>
+                <div class="gif-space">
+                    <img src="tombraider.gif" alt="Animation" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p>The hum of the console. The click of the lid. The sounds that haunted a generation.</p>
+            </div>
+
+            <div class="feature">
+                <h3>Digital Relics</h3>
+                <div class="gif-space">
+                    <img src="ff.gif" alt="Animation" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p>From prerendered backgrounds to low-poly models. Every artifact tells a story.</p>
+            </div>
+
+            <div class="feature">
+                <h3>The Collective</h3>
+                <div class="gif-space">
+                    <img src="spyro.gif" alt="Animation" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p>Join the keepers of the old knowledge. Remember. Preserve. Create.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('contractBox').addEventListener('click', function() {
+            const address = this.querySelector('.contract-address').textContent;
+            navigator.clipboard.writeText(address);
+            this.classList.add('copied');
+            setTimeout(() => this.classList.remove('copied'), 2000);
+        });
+    </script>
+</body>
+</html>
